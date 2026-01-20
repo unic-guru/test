@@ -1,6 +1,7 @@
 --// Core
 local Players = game:GetService("Players")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local InputService = game:GetService("UserInputService")
 
 --// Config
 getgenv().NOVA_ESP_CONFIG = {} :: {
@@ -10,12 +11,14 @@ getgenv().NOVA_ESP_CONFIG = {} :: {
 }
 
 --// Globals
+local keybind = Enum.KeyCode.V
 local startEvent = ReplicatedStorage.Remotes.Gameplay.RoundStart
 local roleColors = {
     ["Innocent"] = Color3.new(1,1,1),
     ["Murderer"] = Color3.new(1,0,0),
     ["Sheriff"] = Color3.new(0,0,1),
 }
+local active = true
 
 --// Methods
 local function getRole(plr)
@@ -60,11 +63,13 @@ end
 
 --// Config Methods
 function NOVA_ESP_CONFIG.SetActive(state)
+    active = state
+
     for _, plr in Players:GetPlayers() do
         local char = plr.Character
         if not char then continue end
 
-        char["NovaESP_Highlight"].Enabled = state
+        char["NovaESP_Highlight"].Enabled = active
     end
 end
 function NOVA_ESP_CONFIG.SetColor(role, color)
@@ -94,6 +99,15 @@ startEvent.OnClientEvent:Connect(function(_, data)
         player.Character["NovaESP_Highlight"].OutlineColor = roleColors[info.Role]
     end
 end)
+
+InputService.InputBegan:Connect(function(kc, chatting)
+    if chatting then return end
+
+    if kc.KeyCode == keycode then
+        NOVA_ESP_CONFIG.SetActive(not active)
+    end
+end)
+
 --// Started
 for _, plr in Players:GetPlayers() do
     loadPlayer(plr)
