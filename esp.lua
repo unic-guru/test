@@ -83,6 +83,7 @@ function NOVA_ESP_CONFIG.SetColor(role, color)
     end
 end
 function NOVA_ESP_CONFIG.SetKeybind(_keybind)
+    print(_keybind)
     keybind = _keybind
 end
 
