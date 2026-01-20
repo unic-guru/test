@@ -101,9 +101,7 @@ startEvent.OnClientEvent:Connect(function(_, data)
 end)
 
 InputService.InputBegan:Connect(function(kc, chatting)
-    if chatting then return end
-
-    if kc.KeyCode == keycode then
+    if kc.KeyCode == keybind then
         NOVA_ESP_CONFIG.SetActive(not active)
     end
 end)
