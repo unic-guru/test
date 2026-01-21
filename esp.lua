@@ -7,11 +7,9 @@ local InputService = game:GetService("UserInputService")
 getgenv().NOVA_ESP_CONFIG = {} :: {
   SetActive: (boolean) -> nil,
   SetColor: (Color3) -> nil,
-  SetKeybind: (Enum.KeyCode) -> nil,
 }
 
 --// Globals
-local keybind = Enum.KeyCode.V
 local startEvent = ReplicatedStorage.Remotes.Gameplay.RoundStart
 local roleColors = {
     ["Innocent"] = Color3.new(1,1,1),
@@ -82,10 +80,6 @@ function NOVA_ESP_CONFIG.SetColor(role, color)
         char["NovaESP_Highlight"].OutlineColor = roleColors[getRole(plr)]
     end
 end
-function NOVA_ESP_CONFIG.SetKeybind(_keybind)
-    print(_keybind)
-    keybind = _keybind
-end
 
 --// Connections
 Players.PlayerAdded:Connect(function(plr)
@@ -98,12 +92,6 @@ startEvent.OnClientEvent:Connect(function(_, data)
         if not player then continue end
 
         player.Character["NovaESP_Highlight"].OutlineColor = roleColors[info.Role]
-    end
-end)
-
-InputService.InputBegan:Connect(function(kc, chatting)
-    if kc.KeyCode == keybind then
-        NOVA_ESP_CONFIG.SetActive(not active)
     end
 end)
 
