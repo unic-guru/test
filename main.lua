@@ -46,7 +46,7 @@ do
     })
 
     Keybind:OnChanged(function()
-        Togge:SetValue(not Keybind.Value)
+        Toggle:SetValue(not Keybind.Value)
     end)
 
     local MurdererColor = Tabs.Main:AddColorpicker("Colorpicker", {
