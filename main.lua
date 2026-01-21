@@ -46,7 +46,7 @@ do
     })
 
     Keybind:OnChanged(function()
-        NOVA_ESP_CONFIG.SetKeybind(Enum.KeyCode[Keybind.Value])
+        Togge:SetValue(not Keybind.Value)
     end)
 
     local MurdererColor = Tabs.Main:AddColorpicker("Colorpicker", {
